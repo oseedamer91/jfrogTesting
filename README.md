@@ -25,7 +25,7 @@ Here are the steps to run this code test
 - go to eclipse  - > File -> import -> Existing Maven Projects -> navigate to downloaded project
 - build (mvn clean install)project then run.
 
-Starting Application:
+Starting the Application you will see:
 
 ===============  Main Menu  ===============
 - 1: Deploy a jar file to artifactory
