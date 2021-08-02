@@ -3,14 +3,10 @@ package com.jfrog.testing;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import com.jfrog.testing.common.Utils;
 import com.jfrog.testing.userOp.CreateApiKeyStrategy;
 import com.jfrog.testing.userOp.GetApiKeyStrategy;
 import com.jfrog.testing.userOp.ReGenerateApiKeyStrategy;
@@ -20,21 +16,18 @@ import com.jfrog.testing.userOp.UploadStrategy;
 
 public class App {
 
-		// REST API - Upload File
-		public static void uploadMvnFile(String fileName) {
+		/******************************** 
+		 *   		Deploy Jar File
+		 ********************************   
+		 */
+		public static void deployMvnFile() {
 			System.out.println("============== Deploying a file ==============");
 			ProcessBuilder processBuilder = new ProcessBuilder();
-	    	String restApiCall = new UploadStrategy().restApiCall(fileName);
+	    	String restApiCall = new UploadStrategy().restApiCall();
 	    	String response = runProcessAPi(processBuilder, restApiCall);
-	    	//JSONObject jsonObject = null;
 	    	try {
-	    		//jsonObject = new JSONObject(response.toString());
-//	    		String repo = jsonObject.getString("repo");
-//	    		String url = new URL(jsonObject.getString("uri")).toString(); 
-//	    		String file = url.substring(url.lastIndexOf('/')+1, url.length() );
-//	        	System.out.println("["+ file +"]" + " File was uploaded to artifactory repo: " + "<"+ repo +">" );
+
 	    		String UriResponeHeader = response.toString().substring(response.toString().indexOf("uri"), response.toString().length()).replace("\"" , "").replace("}", "");
-	    		
 	    		String file = UriResponeHeader.split("/")[UriResponeHeader.split("/").length-1];
 	    		String repo = UriResponeHeader.split("/")[UriResponeHeader.split("/").length-2];
 
@@ -46,10 +39,12 @@ public class App {
 
 
 	
-		/*
+		/*********************************************************************************
 		 *  REST API - Generate ApiKey
 		 *  You can't regenerate if this is no key already , I'm testing here assuming there will be
-		 *  so that the regenerated has different key api. 
+		 *  so that the regenerated has different key api.
+		 *  
+		 *********************  Regenerate API Key ***************************************
 		 */
 		public static String regenerateApiKey() {
 			System.out.println("============== Regenerating API KEY ==============");
@@ -62,7 +57,7 @@ public class App {
 			
 			String newKey = null;
 			ProcessBuilder processBuilder = new ProcessBuilder();
-	   	 	String restApiCall = new ReGenerateApiKeyStrategy().restApiCall(null);
+	   	 	String restApiCall = new ReGenerateApiKeyStrategy().restApiCall();
 	   	 	String response = runProcessAPi(processBuilder, restApiCall).replaceAll("[{|}]+", "");
 	   	 	String pattern = "(\"apiKey\"):(.*)";
 	   	 	
@@ -85,12 +80,15 @@ public class App {
 	       
 		}
 		
-		// REST API - create ApiKey 
+		/******************************** 
+		 *   		Create API Key
+		 ********************************   
+		 */
 		public static String createApiKey() {
 			System.out.println("============== Creating API KEY ==============");
 			String key = null;
 			ProcessBuilder processBuilder = new ProcessBuilder();
-	   	 	String restApiCall = new CreateApiKeyStrategy().restApiCall(null);
+	   	 	String restApiCall = new CreateApiKeyStrategy().restApiCall();
 	   	 	String response = runProcessAPi(processBuilder, restApiCall).replaceAll("[{|}]+", "");
 	   	 	String pattern = "(\"apiKey\"):(.*)";
 	   	 	
@@ -113,12 +111,15 @@ public class App {
 	        return key;
 		}
 		
-		// REST API - get Api Key 
+		/******************************** 
+		 *   		GET API Key
+		 ********************************   
+		 */
 		public static String getApiKey() {
 			System.out.println("============== Getting API KEY ==============");
 			String key = null;
 			ProcessBuilder processBuilder = new ProcessBuilder();
-	   	 	String restApiCall = new GetApiKeyStrategy().restApiCall(null);
+	   	 	String restApiCall = new GetApiKeyStrategy().restApiCall();
 	   	 	String response = runProcessAPi(processBuilder, restApiCall).replaceAll("[{|}]+", "");
 	   	 	String pattern = "(\"apiKey\"):(.*)";
 	   	 	
@@ -135,15 +136,17 @@ public class App {
 	        return key;
 		}
 		
-		// REST API - create ApiKey 
+		/******************************** 
+		 *   		Revoke API Key
+		 ********************************   
+		 */
 		public static void revokeApiKey() {
 			System.out.println("============== Revoking API KEY ==============");
 			ProcessBuilder processBuilder = new ProcessBuilder();
-	   	 	String restApiCall = new RevokeApiKeyStrategy().restApiCall(null);
+	   	 	String restApiCall = new RevokeApiKeyStrategy().restApiCall();
 	   	 	String response = runProcessAPi(processBuilder, restApiCall).replaceAll("[{|}]+", "");
 	   	 	String pattern = "(\"apiKey\"):(.*)";
 	   	 	
-	   	 	// Create a Pattern object
 	        Pattern r = Pattern.compile(pattern);
 	        Matcher m = r.matcher(response);
 	        if(m.find()) {
@@ -162,6 +165,8 @@ public class App {
 			System.out.println("Exiting Menu... ");
 		}
 	
+		
+		
 	/**
 	 * Create a cmd process to send REST API Calls to Artifactory server
 	 */
@@ -203,8 +208,9 @@ public class App {
 	}
 	
 	
-	/*
-	 * Menu of API tests
+	/*****************************
+	 *	   Menu of API tests
+	 *****************************
 	 */
 	public static void runTests() {
 		BufferedReader reader = null;
@@ -221,7 +227,7 @@ public class App {
 			switch(testId) {
 				
 			case "1":
-				uploadMvnFile(Utils.retrieveMVNFile());
+				deployMvnFile();
 				break;
 			case "2":
 				createApiKey();
