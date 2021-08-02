@@ -4,7 +4,7 @@ Hi There
 
 
 Here are the steps to run this code test 
-- press green code icon , copy url
+- press green code button , copy url
 - create new folder locally
 
 # Command line #
