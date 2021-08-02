@@ -35,7 +35,7 @@ Starting the Application you will see:
 - 5: Exit
 - Insert option 1 to 5: [type number here]
 
-Notes:
+# Notes:
 - 1: this will send <user-test-api-app-1.0-SNAPSHOT> to artifactory lib-release folder , so make sure to build project to create the jar file.
 - 2: testing if there is key.
 - 3: testing if regenerate will create distinct keys
