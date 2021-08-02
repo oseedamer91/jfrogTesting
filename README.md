@@ -3,11 +3,11 @@
 Hi There
 
 
-## Here are the steps to run this code test ##
-
-Command line:
+Here are the steps to run this code test 
 - press green code icon , copy url
 - create new folder locally
+
+# Command line #
 - open bash
 - type : git clone <copied url>
 - type : mvn clean istall
@@ -17,7 +17,7 @@ Command line:
 
 
 
-Eclipse IDE:
+# Eclipse IDE #
 - press green code icon , copy url
 - create new folder locally <workspace>
 - create new folder locally
