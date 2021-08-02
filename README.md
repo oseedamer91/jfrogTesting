@@ -18,13 +18,12 @@ Here are the steps to run this code test
 
 
 # Eclipse IDE #
-- press green code icon , copy url
 - create new folder locally <workspace>
-- create new folder locally
 - open bash
 - type : git clone <copied url>
-- go to eclipse  - > File -> import -> Existing Maven Projects -> navigate to download project
-- build project then run.
+- once you have download the application into workspace
+- go to eclipse  - > File -> import -> Existing Maven Projects -> navigate to downloaded project
+- build (mvn clean install)project then run.
 
 Starting Application:
 
