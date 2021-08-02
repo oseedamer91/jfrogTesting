@@ -34,7 +34,7 @@ Starting Application:
 - 3: Regenerate api key
 - 4: Revoke api key
 - 5: Exit
-- Insert option 1 to 5: <type number here>
+- Insert option 1 to 5: [type number here]
 
 Notes:
 - 1: this will send <user-test-api-app-1.0-SNAPSHOT> to artifactory lib-release folder , so make sure to build project to create the jar file.
